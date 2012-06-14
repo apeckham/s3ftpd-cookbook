@@ -1,0 +1,13 @@
+#!/bin/bash
+# Called by Upstart, /etc/init/s3ftpd.conf
+
+export PATH=/opt/opscode/embedded/bin:$PATH
+
+export PORT=21
+export USERNAME=username
+export PASSWORD=password
+export ACCESS_KEY_ID=access_key_id
+export SECRET_ACCESS_KEY=secret_access_key
+export BUCKET=bucket
+
+em-ftpd /usr/share/s3ftpd/config.rb 2>&1 >>/var/log/s3ftpd.log

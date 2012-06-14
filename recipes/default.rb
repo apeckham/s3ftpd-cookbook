@@ -41,6 +41,13 @@ directory "/usr/share/s3ftpd/scripts" do
   action :create
 end
 
+template "/usr/share/s3ftpd/scripts/start" do
+  source "upstart.start.erb"
+  mode 0755
+
+  notifies :restart, resources(:service => "s3ftpd")
+end
+
 cookbook_file "/etc/init/s3ftpd.conf" do
   source "upstart.conf"
   mode 0644
