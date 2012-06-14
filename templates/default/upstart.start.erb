@@ -3,11 +3,11 @@
 
 export PATH=/opt/opscode/embedded/bin:$PATH
 
-export PORT=21
-export USERNAME=username
-export PASSWORD=password
-export ACCESS_KEY_ID=access_key_id
-export SECRET_ACCESS_KEY=secret_access_key
-export BUCKET=bucket
+export PORT="<%= node[:s3ftpd][:port] %>"
+export USERNAME="<%= node[:s3ftpd][:username] %>"
+export PASSWORD="<%= node[:s3ftpd][:password] %>"
+export ACCESS_KEY_ID="<%= node[:s3ftpd][:access_key_id] %>"
+export SECRET_ACCESS_KEY="<%= node[:s3ftpd][:secret_access_key] %>"
+export BUCKET="<%= node[:s3ftpd][:bucket] %>"
 
 em-ftpd /usr/share/s3ftpd/config.rb 2>&1 >>/var/log/s3ftpd.log
