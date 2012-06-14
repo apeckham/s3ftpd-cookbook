@@ -6,11 +6,16 @@
 #
 
 include_recipe "git"
+include_recipe "build-essential"
 
 git "/usr/share/s3ftpd" do
   repository "git://github.com/apeckham/s3ftpd.git"
   revision "master"
   action :sync
+end
+
+apt_package "libssl-dev" do
+  action :install
 end
 
 gem_package "bundler" do
@@ -36,9 +41,9 @@ directory "/usr/share/s3ftpd/scripts" do
   action :create
 end
 
-template "/usr/share/s3ftpd/scripts/start" do
-  source "upstart.start.erb"
-  mode 0755
+cookbook_file "/etc/init/s3ftpd.conf" do
+  source "upstart.conf"
+  mode 0644
 
   notifies :restart, resources(:service => "s3ftpd")
 end
