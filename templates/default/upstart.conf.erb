@@ -1,0 +1,13 @@
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+script
+  (
+    inotifywait -m -e close_write --format "%w%f" /home/upload/incoming | while read FILE
+    do
+      s3cmd --config /usr/share/s3cfg put "$FILE" s3://<%= node[:s3ftpd][:bucket] %>/ && rm "$FILE"
+    done
+  ) 2>&1 | logger
+end script
