@@ -1,4 +1,10 @@
-include_recipe "build-essential"
+apt_package "make" do
+  action :install
+end
+
+apt_package "libc6-dev" do
+  action :install
+end
 
 begin
   apt_package "vsftpd" do
